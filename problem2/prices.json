@@ -30,7 +30,7 @@
     "price": 36.345114372881355
   },
   {
-    "currency": "STEVMOS",
+    "currency": "stEVMOS",
     "date": "2023-08-29T07:10:40.000Z",
     "price": 0.07276706779661017
   },
@@ -40,7 +40,7 @@
     "price": 0.40955638983050846
   },
   {
-    "currency": "RATOM",
+    "currency": "rATOM",
     "date": "2023-08-29T07:10:40.000Z",
     "price": 10.250918915254237
   },
@@ -75,7 +75,7 @@
     "price": 0.675
   },
   {
-    "currency": "STOSMO",
+    "currency": "stOSMO",
     "date": "2023-08-29T07:10:45.000Z",
     "price": 0.431318
   },
@@ -95,7 +95,7 @@
     "price": 7.186657333333334
   },
   {
-    "currency": "STATOM",
+    "currency": "stATOM",
     "date": "2023-08-29T07:10:45.000Z",
     "price": 8.512162050847458
   },
@@ -110,7 +110,7 @@
     "price": 0.00408771
   },
   {
-    "currency": "STLUNA",
+    "currency": "stLUNA",
     "date": "2023-08-29T07:10:40.000Z",
     "price": 0.44232210169491526
   },
