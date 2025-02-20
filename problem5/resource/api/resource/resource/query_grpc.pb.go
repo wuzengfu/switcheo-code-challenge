@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName       = "/resource.resource.Query/Params"
-	Query_ShowResource_FullMethodName = "/resource.resource.Query/ShowResource"
-	Query_ListResource_FullMethodName = "/resource.resource.Query/ListResource"
+	Query_Params_FullMethodName             = "/resource.resource.Query/Params"
+	Query_ShowResource_FullMethodName       = "/resource.resource.Query/ShowResource"
+	Query_ListResource_FullMethodName       = "/resource.resource.Query/ListResource"
+	Query_ListResourceByName_FullMethodName = "/resource.resource.Query/ListResourceByName"
 )
 
 // QueryClient is the client API for Query service.
@@ -34,6 +35,8 @@ type QueryClient interface {
 	ShowResource(ctx context.Context, in *QueryShowResourceRequest, opts ...grpc.CallOption) (*QueryShowResourceResponse, error)
 	// Queries a list of ListResource items.
 	ListResource(ctx context.Context, in *QueryListResourceRequest, opts ...grpc.CallOption) (*QueryListResourceResponse, error)
+	// Queries a list of ListResourceByName items.
+	ListResourceByName(ctx context.Context, in *QueryListResourceByNameRequest, opts ...grpc.CallOption) (*QueryListResourceByNameResponse, error)
 }
 
 type queryClient struct {
@@ -71,6 +74,15 @@ func (c *queryClient) ListResource(ctx context.Context, in *QueryListResourceReq
 	return out, nil
 }
 
+func (c *queryClient) ListResourceByName(ctx context.Context, in *QueryListResourceByNameRequest, opts ...grpc.CallOption) (*QueryListResourceByNameResponse, error) {
+	out := new(QueryListResourceByNameResponse)
+	err := c.cc.Invoke(ctx, Query_ListResourceByName_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -81,6 +93,8 @@ type QueryServer interface {
 	ShowResource(context.Context, *QueryShowResourceRequest) (*QueryShowResourceResponse, error)
 	// Queries a list of ListResource items.
 	ListResource(context.Context, *QueryListResourceRequest) (*QueryListResourceResponse, error)
+	// Queries a list of ListResourceByName items.
+	ListResourceByName(context.Context, *QueryListResourceByNameRequest) (*QueryListResourceByNameResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -96,6 +110,9 @@ func (UnimplementedQueryServer) ShowResource(context.Context, *QueryShowResource
 }
 func (UnimplementedQueryServer) ListResource(context.Context, *QueryListResourceRequest) (*QueryListResourceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListResource not implemented")
+}
+func (UnimplementedQueryServer) ListResourceByName(context.Context, *QueryListResourceByNameRequest) (*QueryListResourceByNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListResourceByName not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -164,6 +181,24 @@ func _Query_ListResource_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_ListResourceByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryListResourceByNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ListResourceByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_ListResourceByName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ListResourceByName(ctx, req.(*QueryListResourceByNameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +217,10 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListResource",
 			Handler:    _Query_ListResource_Handler,
+		},
+		{
+			MethodName: "ListResourceByName",
+			Handler:    _Query_ListResourceByName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

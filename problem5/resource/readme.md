@@ -7,45 +7,32 @@
 ignite chain serve
 ```
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
-
-### Configure
-
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
-
-### Web Frontend
-
-Additionally, Ignite CLI offers both Vue and React options for frontend scaffolding:
-
-For a Vue frontend, use: `ignite scaffold vue`
-For a React frontend, use: `ignite scaffold react`
-These commands can be run within your scaffolded blockchain project. 
-
-
-For more information see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
-
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
-
+### Create a resource
 ```
-git tag v0.1
-git push origin v0.1
+resourced tx resource create-resource hello world --from alice --chain-id resource
 ```
 
-After a draft release is created, make your final changes from the release page and publish it.
-
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
-
+### View a resource by ID
 ```
-curl https://get.ignite.com/username/resource@latest! | sudo bash
+resourced q resource show-resource 0
 ```
-`username/resource` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
 
-## Learn more
+### List all resources
+```
+resourced q resource list-resource
+```
 
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
+### List all resources whose name contains a keyword
+```
+resourced q resource list-resource-by-name "hello"
+```
+
+### Update a resource by ID
+```
+resourced tx resource update-resource "New resource name" "new resource details" 0 --from alice --chain-id resource
+```
+
+### Delete a resource by ID
+```
+resourced tx resource delete-resource 0 --from alice --chain-id resource
+```

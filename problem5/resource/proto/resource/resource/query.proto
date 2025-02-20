@@ -13,23 +13,29 @@ option go_package = "resource/x/resource/types";
 
 // Query defines the gRPC querier service.
 service Query {
-
+  
   // Parameters queries the parameters of the module.
   rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/resource/resource/params";
-
+  
   }
-
+  
   // Queries a list of ShowResource items.
   rpc ShowResource (QueryShowResourceRequest) returns (QueryShowResourceResponse) {
     option (google.api.http).get = "/resource/resource/show_resource/{id}";
-
+  
   }
-
+  
   // Queries a list of ListResource items.
   rpc ListResource (QueryListResourceRequest) returns (QueryListResourceResponse) {
     option (google.api.http).get = "/resource/resource/list_resource";
-
+  
+  }
+  
+  // Queries a list of ListResourceByName items.
+  rpc ListResourceByName (QueryListResourceByNameRequest) returns (QueryListResourceByNameResponse) {
+    option (google.api.http).get = "/resource/resource/list_resource_by_name/{name}";
+  
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -37,7 +43,7 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
@@ -55,7 +61,17 @@ message QueryListResourceRequest {
 }
 
 message QueryListResourceResponse {
-  repeated Resource                               resource = 1 [(gogoproto.nullable) = false];
+  repeated Resource                               resource   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryListResourceByNameRequest {
+  string                                name       = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryListResourceByNameResponse {
+  repeated Resource                               resource   = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

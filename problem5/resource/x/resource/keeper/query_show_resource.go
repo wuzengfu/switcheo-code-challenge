@@ -3,11 +3,12 @@ package keeper
 import (
 	"context"
 
+	"resource/x/resource/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"resource/x/resource/types"
 )
 
 func (k Keeper) ShowResource(goCtx context.Context, req *types.QueryShowResourceRequest) (*types.QueryShowResourceResponse, error) {
